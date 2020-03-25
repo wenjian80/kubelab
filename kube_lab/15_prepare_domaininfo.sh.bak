@@ -1,0 +1,11 @@
+kubectl -n sampledomain create secret generic sample-domain1-weblogic-credentials --from-literal=username=weblogic --from-literal=password=welcome1
+
+
+kubectl label secret sample-domain1-weblogic-credentials   -n sampledomain  weblogic.domainUID=sample-domain1  weblogic.domainName=sample-domain1
+
+
+kubectl create secret docker-registry ocirsecret --docker-server=iad.ocir.io --docker-username=$ociruser --docker-password=$ocirpass --docker-email='boon.jian.lim@oracle.com' -n sampledomain
+
+helm upgrade   --reuse-values   --set "domainNamespaces={sampledomain}"   --wait   weblogic-operator  weblogic-operator/weblogic-operator
+
+helm upgrade --reuse-values   --set "kubernetes.namespaces={traefik,sampledomain}" --wait traefik-operator stable/traefik

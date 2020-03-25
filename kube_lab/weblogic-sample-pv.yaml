@@ -1,0 +1,24 @@
+# Copyright 2018, Oracle Corporation and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: weblogic-sample-pv
+  namespace: sampledomain
+  labels:
+    weblogic.resourceVersion: domain-v2
+    weblogic.domainUID: sample-domain1
+spec:
+  storageClassName: weblogic-sample-storage-class
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  # Valid values are Retain, Delete or Recycle
+  persistentVolumeReclaimPolicy: Retain
+  # hostPath:
+  nfs:
+    server: 10.0.0.5
+    path: "/shared"
+

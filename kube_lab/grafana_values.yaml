@@ -1,0 +1,18 @@
+# Copyright 2019, Oracle Corporation and/or its affiliates. All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
+
+persistence:
+  enabled: false
+#  existingClaim: pvc-grafana
+#  enabled: true
+#  existingClaim: pvc-grafana
+service:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+  nodePort: 31001
+
+admin:
+  existingSecret: "grafana-secret"
+  userKey: username
+  passwordKey: password
